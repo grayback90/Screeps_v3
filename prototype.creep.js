@@ -2,7 +2,7 @@
 *
 * file: prototype.creep.js
 * date: 19.01.2023
-* version: 0.1
+* version: 0.2
 *
 * funtions: logic for creeps to get
 *           energy
@@ -10,8 +10,8 @@
 **********************************************/
 
 var roles = {
-    harvester: require('./roles/role.harvester'),
-    upgrader: require('./roles/role.upgrader'),
+    harvester: require('role.harvester'),
+    upgrader: require('role.upgrader'),
 };
 
 Creep.prototype.runRole =
