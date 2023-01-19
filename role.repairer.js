@@ -2,11 +2,14 @@
 *
 * file: role.repairer.js
 * date: 19.01.2023
-* version: 1.0
+* version: 1.2
 *
+* repairs structures which are not walls
+* dismantle structures if needed
 **********************************************/
 
 // import modules
+const { remove } = require('lodash');
 var roleBuilder = require('role.builder');
 
 module.exports = {
@@ -14,12 +17,12 @@ module.exports = {
     /** @param {Creep} creep */
     run: function(creep) {
         // if creep is trying to repair something but has no energy left
-        if (creep.memory.working == true && creep.carry.energy == 0) {
+        if (creep.memory.working == true && creep.store[RESOURCE_ENERGY] == 0) {
             // switch state
             creep.memory.working = false;
         }
         // if creep is harvesting energy but is full
-        else if (creep.memory.working == false && creep.carry.energy == creep.carryCapacity) {
+        else if (creep.memory.working == false && creep.store[RESOURCE_ENERGY] == creep.store.getCapacity()) {
             // switch state
             creep.memory.working = true;
         }
@@ -28,7 +31,7 @@ module.exports = {
         if (creep.memory.working == true) {
             // find closest structure with less than max hits
             // Exclude walls because they have way too many max hits and would keep
-            // our repairers busy forever. We have to find a solution for that later.
+            // our repairers busy forever.
             var structure = creep.pos.findClosestByPath(FIND_STRUCTURES, {
                 // the second argument for findClosestByPath is an object which takes
                 // a property called filter which can be a function
@@ -46,8 +49,23 @@ module.exports = {
             }
             // if we can't fine one
             else {
-                // look for construction sites
-                roleBuilder.run(creep);
+                //search for building to deconstruct (remove-flag)
+                var removeflag = creep.pos.findClosestByPath(FIND_FLAGS, {
+                    filter: (f) => f.name == "remove"
+                });
+                //if we found a flag
+                if (removeflag != undefined) {
+                    //dismantle 
+                    if (creep.dismantle(structure) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(structure);
+                        //remove flag
+                        remove(removeflag);
+                    }
+                }
+                else {
+                    // look for construction sites
+                    roleBuilder.run(creep);
+                }
             }
         }
             // if creep is supposed to get energy
