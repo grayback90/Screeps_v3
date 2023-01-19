@@ -2,7 +2,7 @@
 *
 * file: role.builder.js
 * date: 19.01.2023
-* version: 1.0
+* version: 1.1
 *
 **********************************************/
 
@@ -23,12 +23,12 @@ module.exports = {
         }
 
         // if creep is trying to complete a constructionSite but has no energy left
-        if (creep.memory.working == true && creep.carry.energy == 0) {
+        if (creep.memory.working == true && creep.store[RESOURCE_ENERGY] == 0) {
             // switch state
             creep.memory.working = false;
         }
         // if creep is harvesting energy but is full
-        else if (creep.memory.working == false && creep.carry.energy == creep.carryCapacity) {
+        else if (creep.memory.working == false && creep.store[RESOURCE_ENERGY] == creep.store.getCapacity()) {
             // switch state
             creep.memory.working = true;
         }
