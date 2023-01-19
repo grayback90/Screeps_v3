@@ -2,7 +2,7 @@
 *
 * file: prototype.spawn.js
 * date: 19.01.2023
-* version: 0.1
+* version: 0.2
 *
 * funtions: logic for spawning normal and
 *           special creeps and storing
@@ -10,7 +10,7 @@
 *
 **********************************************/
 
-var listOfRoles = ['harvester', 'upgrader', 'builder'];
+var listOfRoles = ['harvester', 'upgrader', 'builder', 'repairer'];
 
 // create a new function for StructureSpawn
 StructureSpawn.prototype.spawnCreepsIfNecessary =
@@ -35,7 +35,8 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
         let max_ = {};
         max_['harvester'] = 2;
         max_['upgrader'] = 1;
-        max_['builder'] = 2;
+        max_['builder'] = 1;
+        max_['repairer'] = 1;
 
         let maxEnergy = room.energyCapacityAvailable;
         let name = undefined;
