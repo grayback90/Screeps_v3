@@ -10,7 +10,7 @@
 *
 **********************************************/
 
-var listOfRoles = ['harvester', 'upgrader'];
+var listOfRoles = ['harvester', 'upgrader', 'builder'];
 
 // create a new function for StructureSpawn
 StructureSpawn.prototype.spawnCreepsIfNecessary =
@@ -34,7 +34,8 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
         }
         let max_ = {};
         max_['harvester'] = 2;
-        max_['upgrader'] = 2;
+        max_['upgrader'] = 1;
+        max_['builder'] = 2;
 
         let maxEnergy = room.energyCapacityAvailable;
         let name = undefined;
@@ -60,7 +61,7 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
         if (name != undefined && _.isString(name)) {
             console.log(this.name + " spawned new creep: " + name + " (" + Game.creeps[name].memory.role + ")");
             for (let role of listOfRoles) {
-                console.log(role + ": " + numberOfCreeps[role]);
+                console.log(role + ": " + numberOfCreeps[role] + "/" + max_[role]);
             }
         }
     };
