@@ -10,6 +10,8 @@
 *
 **********************************************/
 
+const { max } = require("lodash");
+
 var listOfRoles = ['harvester', 'upgrader', 'builder', 'repairer'];
 
 // create a new function for StructureSpawn
@@ -36,7 +38,9 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
         max_['harvester'] = 2;
         max_['upgrader'] = 1;
         max_['builder'] = 1;
-        max_['repairer'] = 1;
+        max_['repairer'] = 2;
+        //max_['miner'] = 1;
+        //max_['lorry'] = 1;
 
         let maxEnergy = room.energyCapacityAvailable;
         let name = undefined;
