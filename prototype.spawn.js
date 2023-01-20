@@ -12,7 +12,7 @@
 
 const { max } = require("lodash");
 
-var listOfRoles = ['harvester', 'upgrader', 'builder', 'repairer'];
+var listOfRoles = ['harvester', 'upgrader', 'builder', 'repairer', 'wallrepairer'];
 
 // create a new function for StructureSpawn
 StructureSpawn.prototype.spawnCreepsIfNecessary =
@@ -39,6 +39,7 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
         max_['upgrader'] = 1;
         max_['builder'] = 1;
         max_['repairer'] = 2;
+        max_['wallrepairer'] = 1;
         //max_['miner'] = 1;
         //max_['lorry'] = 1;
 
