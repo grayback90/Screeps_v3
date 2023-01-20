@@ -47,25 +47,10 @@ module.exports = {
                     creep.moveTo(structure);
                 }
             }
-            // if we can't fine one
-            else {
-                //search for building to deconstruct (remove-flag)
-                var removeflag = creep.pos.findClosestByPath(FIND_FLAGS, {
-                    filter: (f) => f.name == "remove"
-                });
-                //if we found a flag
-                if (removeflag != undefined) {
-                    //dismantle 
-                    if (creep.dismantle(structure) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(structure);
-                        //remove flag
-                        remove(removeflag);
-                    }
-                }
-                else {
-                    // look for construction sites
-                    roleBuilder.run(creep);
-                }
+        // if we can't fine one
+        else {
+            // look for construction sites
+            roleBuilder.run(creep);
             }
         }
             // if creep is supposed to get energy
